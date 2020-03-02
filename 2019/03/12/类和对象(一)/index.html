@@ -1,0 +1,775 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="类,对象," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="类的构成类是把各种不同类型的数据和对数据的操作组织在一起而形成的的用户自定义的数据类型，其中，把不同类型的数据称为数据成员，把对数据的操作称为成员函数。 类的声明类的声明格式如下： 12345678910111213class 类名				&#x2F;&#x2F;类名由用户自定义，一般首字母大写｛					&#x2F;&#x2F;访问属性后跟“：”来指定	[private:] 			&#x2F;&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="类和对象(一)">
+<meta property="og:url" content="http://yoursite.com/2019/03/12/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1(%E4%B8%80)/index.html">
+<meta property="og:site_name" content="烂泥面包">
+<meta property="og:description" content="类的构成类是把各种不同类型的数据和对数据的操作组织在一起而形成的的用户自定义的数据类型，其中，把不同类型的数据称为数据成员，把对数据的操作称为成员函数。 类的声明类的声明格式如下： 12345678910111213class 类名				&#x2F;&#x2F;类名由用户自定义，一般首字母大写｛					&#x2F;&#x2F;访问属性后跟“：”来指定	[private:] 			&#x2F;&amp;">
+<meta property="article:published_time" content="2019-03-12T06:18:46.000Z">
+<meta property="article:modified_time" content="2019-03-14T03:17:35.000Z">
+<meta property="article:author" content="烂泥面包">
+<meta property="article:tag" content="类">
+<meta property="article:tag" content="对象">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 类和对象(一) | 烂泥面包 </title>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">烂泥面包</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                类和对象(一)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-03-12T14:18:46+08:00" content="2019-03-12">
+              2019-03-12
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="类的构成"><a href="#类的构成" class="headerlink" title="类的构成"></a>类的构成</h1><p>类是把各种不同类型的数据和对数据的操作组织在一起而形成的的用户自定义的数据类型，其中，把不同类型的数据称为数据成员，把对数据的操作称为成员函数。</p>
+<h2 id="类的声明"><a href="#类的声明" class="headerlink" title="类的声明"></a>类的声明</h2><p>类的声明格式如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">class 类名				&#x2F;&#x2F;类名由用户自定义，一般首字母大写</span><br><span class="line">｛</span><br><span class="line">					&#x2F;&#x2F;访问属性后跟“：”来指定</span><br><span class="line">	[private:] 			&#x2F;&#x2F;只能由本类的成员函数访问</span><br><span class="line">		私有数据成员；</span><br><span class="line">		私有成员函数；</span><br><span class="line">	protected:			&#x2F;&#x2F;可由本类和本类的派生类成员函数访问</span><br><span class="line">		保护数据成员；</span><br><span class="line">		保护成员函数；</span><br><span class="line">	public:				&#x2F;&#x2F;可由程序中的函数访问，是对外开放的</span><br><span class="line">		公有数据成员；</span><br><span class="line">		公有成员函数；</span><br><span class="line">｝；					&#x2F;&#x2F;类体后以“；”结束</span><br></pre></td></tr></table></figure>
+<p>说明：一般情况下，数据成员应声明为私有成员，成员函数为公有成员，如不做声明默认为私有的，不能在声明中给数据成员赋初值。</p>
+<p>用struct声明的类和class声明的类的主要区别是默认访问属性不同。在类class中默认访问属性为private，在结构体struct中默认访问属性为public。<a id="more"></a></p>
+<h1 id="类的成员函数"><a href="#类的成员函数" class="headerlink" title="类的成员函数"></a>类的成员函数</h1><p>成员函数可以定义在类定义内部，或者单独使用范围解析运算符 <code>::</code> 来定义。</p>
+<ul>
+<li>内部定义</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">class Box</span><br><span class="line">&#123;</span><br><span class="line">   public:</span><br><span class="line">      double length;      &#x2F;&#x2F; 长度</span><br><span class="line">      double breadth;     &#x2F;&#x2F; 宽度</span><br><span class="line">      double height;      &#x2F;&#x2F; 高度</span><br><span class="line">   </span><br><span class="line">      double getVolume(void) 	&#x2F;&#x2F;返回体积</span><br><span class="line">      &#123;</span><br><span class="line">         return length * breadth * height;</span><br><span class="line">      &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>外部定义</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">class Box</span><br><span class="line">&#123;</span><br><span class="line">   public:</span><br><span class="line">      double length;         &#x2F;&#x2F; 长度</span><br><span class="line">      double breadth;        &#x2F;&#x2F; 宽度</span><br><span class="line">      double height;         &#x2F;&#x2F; 高度</span><br><span class="line">      double getVolume(void);	&#x2F;&#x2F; 返回体积</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">double Box::getVolume(void)</span><br><span class="line">&#123;</span><br><span class="line">    return length * breadth * height;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这里，需要强调一点，在 <code>::</code> 运算符之前必须使用类名。调用成员函数是在对象上使用点运算符<code>.</code>，这样它就能操作与该对象相关的数据，如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Box myBox;          &#x2F;&#x2F; 创建一个对象</span><br><span class="line"> </span><br><span class="line">myBox.getVolume();  &#x2F;&#x2F; 调用该对象的成员函数</span><br></pre></td></tr></table></figure>
+
+<p>完整示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">#include &lt;iostream&gt;</span><br><span class="line"> </span><br><span class="line">using namespace std;</span><br><span class="line"> </span><br><span class="line">class Box</span><br><span class="line">&#123;</span><br><span class="line">   public:</span><br><span class="line">      double length;         &#x2F;&#x2F; 长度</span><br><span class="line">      double breadth;        &#x2F;&#x2F; 宽度</span><br><span class="line">      double height;         &#x2F;&#x2F; 高度</span><br><span class="line"> </span><br><span class="line">      &#x2F;&#x2F; 成员函数声明</span><br><span class="line">      double getVolume(void);</span><br><span class="line">      void setLength( double len );</span><br><span class="line">      void setBreadth( double bre );</span><br><span class="line">      void setHeight( double hei );</span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 成员函数定义</span><br><span class="line">double Box::getVolume(void)</span><br><span class="line">&#123;</span><br><span class="line">    return length * breadth * height;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">void Box::setLength( double len )</span><br><span class="line">&#123;</span><br><span class="line">    length &#x3D; len;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">void Box::setBreadth( double bre )</span><br><span class="line">&#123;</span><br><span class="line">    breadth &#x3D; bre;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">void Box::setHeight( double hei )</span><br><span class="line">&#123;</span><br><span class="line">    height &#x3D; hei;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line">&#x2F;&#x2F; 程序的主函数</span><br><span class="line">int main( )</span><br><span class="line">&#123;</span><br><span class="line">   Box Box1;                &#x2F;&#x2F; 声明 Box1，类型为 Box</span><br><span class="line">   Box Box2;                &#x2F;&#x2F; 声明 Box2，类型为 Box</span><br><span class="line">   double volume &#x3D; 0.0;     &#x2F;&#x2F; 用于存储体积</span><br><span class="line"> </span><br><span class="line">   &#x2F;&#x2F; box 1 详述</span><br><span class="line">   Box1.setLength(6.0); </span><br><span class="line">   Box1.setBreadth(7.0); </span><br><span class="line">   Box1.setHeight(5.0);</span><br><span class="line"> </span><br><span class="line">   &#x2F;&#x2F; box 2 详述</span><br><span class="line">   Box2.setLength(12.0); </span><br><span class="line">   Box2.setBreadth(13.0); </span><br><span class="line">   Box2.setHeight(10.0);</span><br><span class="line"> </span><br><span class="line">   &#x2F;&#x2F; box 1 的体积</span><br><span class="line">   volume &#x3D; Box1.getVolume();</span><br><span class="line">   cout &lt;&lt; &quot;Box1 的体积：&quot; &lt;&lt; volume &lt;&lt;endl;</span><br><span class="line"> </span><br><span class="line">   &#x2F;&#x2F; box 2 的体积</span><br><span class="line">   volume &#x3D; Box2.getVolume();</span><br><span class="line">   cout &lt;&lt; &quot;Box2 的体积：&quot; &lt;&lt; volume &lt;&lt;endl;</span><br><span class="line">   return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当上面的代码被编译和执行时，它会产生下列结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Box1 的体积： 210</span><br><span class="line">Box2 的体积： 1560</span><br></pre></td></tr></table></figure>
+<h1 id="对象的定义与访问"><a href="#对象的定义与访问" class="headerlink" title="对象的定义与访问"></a>对象的定义与访问</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><ol>
+<li>在类声明的同时直接定义对象<br>例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">class Point</span><br><span class="line">｛</span><br><span class="line">	private：</span><br><span class="line">		int x,y;</span><br><span class="line">	public:</span><br><span class="line">		void SetPoint(int,int);</span><br><span class="line">		int Getx();</span><br><span class="line">		int Gety();</span><br><span class="line">｝op1,op2;			&#x2F;&#x2F;直接定义对象</span><br></pre></td></tr></table></figure></li>
+<li>在声明类后再定义对象<br>格式：<code>类名 对象名（参数表）</code><br>例如：<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class Point</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;...</span><br><span class="line">&#125;;</span><br><span class="line">&#x2F;&#x2F;...</span><br><span class="line">int main ()</span><br><span class="line">&#123;</span><br><span class="line">	Point op1,op2;		&#x2F;&#x2F;主函数中定义对象</span><br><span class="line">	&#x2F;&#x2F;...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="访问"><a href="#访问" class="headerlink" title="访问"></a>访问</h2><ol>
+<li>成员运算符<code>.</code>访问<br>格式：<code>对象名.成员名</code> 或 <code>(*指向对象的指针).成员名</code></li>
+<li>指针访问形式<br>格式：<code>对象指针变量名-&gt;成员名</code> 或 <code>(&amp;对象名)-&gt;成员名</code></li>
+</ol>
+<h1 id="构造函数与析构函数"><a href="#构造函数与析构函数" class="headerlink" title="构造函数与析构函数"></a>构造函数与析构函数</h1><h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><p>构造函数（Constructor）是与类名同名的特殊的成员函数，当定义该类的对象时，构造函数被系统自动调用，以实现对该对象的初始化。<br>说明：</p>
+<ol>
+<li>必须与类名相同</li>
+<li>没有返回值类型，前面不能加void</li>
+<li>构造函数为public属性</li>
+<li>构造函数可以重载</li>
+</ol>
+<h2 id="成员初始化表"><a href="#成员初始化表" class="headerlink" title="成员初始化表"></a>成员初始化表</h2><p>在声明类时不能在数据成员声明中对数据成员进行初始化，数据成员初始化工作一般在构造函数中用赋值语句进行。但是对于常量类型和引用类型的数据成员，又不能在构造函数中直接赋值，所以C++提供了成员初始化表的置初值方式。<br>格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">类名::构造函数名([参数表])[:成员初始化表] 		&#x2F;&#x2F;[]中内容可省略</span><br><span class="line">｛</span><br><span class="line">	&#x2F;&#x2F;构造函数体</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+<p>其中成员初始化表的一般形式为：<br><code>数据成员名1（初始值1）,数据成员名2（初始值2）...</code><br>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">class CMyClass &#123;		&#x2F;&#x2F;定义类</span><br><span class="line">    CMyClass(int x, int y);		&#x2F;&#x2F;定义构造函数</span><br><span class="line">    int m_x;		&#x2F;&#x2F;定义数据成员</span><br><span class="line">    int m_y;		&#x2F;&#x2F;定义数据成员</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">CMyClass::CMyClass(int x, int y) : m_y(y), m_x(m_y) 		&#x2F;&#x2F;成员初始化表，即m_y&#x3D;y, m_x&#x3D;m_y</span><br><span class="line">&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="析构函数"><a href="#析构函数" class="headerlink" title="析构函数"></a>析构函数</h2><p>析构函数也是一种特殊的成员函数，它执行与构造函数相反的操作，通常用于撤销对象时的一些清理任务，如释放分配给对象的内存空间等。<br>格式：在类名前加“~”</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">~类名()</span><br><span class="line">&#123;</span><br><span class="line">	函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>注意：</p>
+<ol>
+<li>没有返回值和参数</li>
+<li>不能随意调用</li>
+<li>没有重载</li>
+<li>只在对象生存期结束时系统自动调用</li>
+</ol>
+<h2 id="拷贝构造函数"><a href="#拷贝构造函数" class="headerlink" title="拷贝构造函数"></a>拷贝构造函数</h2><p>用于实现对象值的拷贝。通过将一个同类对象的值拷贝给新的对象，而完成对新对象的初始化，即用一个对象去构造另一个对象。<br>定义格式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">类名::类名(const类名 &amp;对象名)</span><br><span class="line">&#123;</span><br><span class="line">	&#x2F;&#x2F;拷贝构造函数的函数体</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%B1%BB/" rel="tag">#类</a>
+          
+            <a href="/tags/%E5%AF%B9%E8%B1%A1/" rel="tag">#对象</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/12/C++%E5%BC%82%E5%B8%B8%E5%A4%84%E7%90%86/" rel="next" title="C++异常处理">
+                <i class="fa fa-chevron-left"></i> C++异常处理
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/14/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1(%E4%BA%8C)/" rel="prev" title="类和对象(二)">
+                类和对象(二) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="烂泥面包" />
+          <p class="site-author-name" itemprop="name">烂泥面包</p>
+          <p class="site-description motion-element" itemprop="description">天生我材必有用</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#类的构成"><span class="nav-number">1.</span> <span class="nav-text">类的构成</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#类的声明"><span class="nav-number">1.1.</span> <span class="nav-text">类的声明</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#类的成员函数"><span class="nav-number">2.</span> <span class="nav-text">类的成员函数</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象的定义与访问"><span class="nav-number">3.</span> <span class="nav-text">对象的定义与访问</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#定义"><span class="nav-number">3.1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#访问"><span class="nav-number">3.2.</span> <span class="nav-text">访问</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#构造函数与析构函数"><span class="nav-number">4.</span> <span class="nav-text">构造函数与析构函数</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#构造函数"><span class="nav-number">4.1.</span> <span class="nav-text">构造函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#成员初始化表"><span class="nav-number">4.2.</span> <span class="nav-text">成员初始化表</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#析构函数"><span class="nav-number">4.3.</span> <span class="nav-text">析构函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#拷贝构造函数"><span class="nav-number">4.4.</span> <span class="nav-text">拷贝构造函数</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烂泥面包</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

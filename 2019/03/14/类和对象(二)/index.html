@@ -1,0 +1,824 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="类,对象," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="自引用指针this 对象的自身引用是面向对象程序设计语言中特有的、十分重要的一种机制。在C++中，为这种机制设立了专门的表示：this指针变量。 在类的每一个成员函数的形参表中都有一个隐含的指针变量this，该指针变量的类型就是成员函数所属类的类型。 当程序中调用类的成员函数时，this指针变量被自动初始化为发出函数调用的对象的地址。  例如： 12345678910111213141516171">
+<meta property="og:type" content="article">
+<meta property="og:title" content="类和对象(二)">
+<meta property="og:url" content="http://yoursite.com/2019/03/14/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1(%E4%BA%8C)/index.html">
+<meta property="og:site_name" content="烂泥面包">
+<meta property="og:description" content="自引用指针this 对象的自身引用是面向对象程序设计语言中特有的、十分重要的一种机制。在C++中，为这种机制设立了专门的表示：this指针变量。 在类的每一个成员函数的形参表中都有一个隐含的指针变量this，该指针变量的类型就是成员函数所属类的类型。 当程序中调用类的成员函数时，this指针变量被自动初始化为发出函数调用的对象的地址。  例如： 12345678910111213141516171">
+<meta property="article:published_time" content="2019-03-14T03:18:46.000Z">
+<meta property="article:modified_time" content="2019-03-14T04:36:26.000Z">
+<meta property="article:author" content="烂泥面包">
+<meta property="article:tag" content="类">
+<meta property="article:tag" content="对象">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 类和对象(二) | 烂泥面包 </title>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">烂泥面包</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                类和对象(二)
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-03-14T11:18:46+08:00" content="2019-03-14">
+              2019-03-14
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/C/" itemprop="url" rel="index">
+                    <span itemprop="name">C++</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="自引用指针this"><a href="#自引用指针this" class="headerlink" title="自引用指针this"></a>自引用指针this</h1><ul>
+<li>对象的自身引用是面向对象程序设计语言中特有的、十分重要的一种机制。在C++中，为这种机制设立了专门的表示：this指针变量。</li>
+<li>在类的每一个成员函数的形参表中都有一个隐含的指针变量this，该指针变量的类型就是成员函数所属类的类型。</li>
+<li>当程序中调用类的成员函数时，this指针变量被自动初始化为发出函数调用的对象的地址。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Sample</span><br><span class="line">&#123;</span><br><span class="line">	int x, y;</span><br><span class="line">public:</span><br><span class="line">	Sample(int a&#x3D;0, int b&#x3D;0)</span><br><span class="line">	&#123; x&#x3D;a; y&#x3D;b; &#125;</span><br><span class="line">	void print()</span><br><span class="line">	&#123; cout&lt;&lt;x&lt;&lt;endl;</span><br><span class="line">	 cout&lt;&lt;y&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123; Sample obj(5,10);</span><br><span class="line">  obj.print();</span><br><span class="line">  return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>上述程序可用this指针显示改写为完全等价的形式： </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Sample</span><br><span class="line">&#123;</span><br><span class="line">	int x, y;</span><br><span class="line">public:</span><br><span class="line">	Sample(int a&#x3D;0, int b&#x3D;0)</span><br><span class="line">	&#123; this-&gt;x&#x3D;a;                &#x2F;&#x2F;在此例中this&#x3D;&amp;obj</span><br><span class="line">	  this-&gt;y&#x3D;b; &#125;</span><br><span class="line">	void print()</span><br><span class="line">	&#123; cout&lt;&lt;this-&gt;x&lt;&lt;endl;     &#x2F;&#x2F;在此例中this&#x3D;&amp;obj</span><br><span class="line">	 cout&lt;&lt;this-&gt;y&lt;&lt;endl;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123; Sample obj(5,10);		&#x2F;&#x2F;当程序中调用类的成员函数时，this指针变量被自动</span><br><span class="line"> obj.print();			&#x2F;&#x2F;初始化为发出函数调用的对象的地址。</span><br><span class="line"> return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>那么何时使用this指针呢？</strong><br>编写代码时主要有两种场合要求尽可能使用this指针</p>
+<ul>
+<li>一种是为了区分成员和非成员</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">void Sample::fun(int x)</span><br><span class="line">&#123;</span><br><span class="line">  this-&gt;x&#x3D;x;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>一种使用this指针的应用是一个类的方法需要返回当前对象的引用。</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">class Sample</span><br><span class="line">&#123;</span><br><span class="line"> private:</span><br><span class="line"> 	int x;</span><br><span class="line">	char* ptr;</span><br><span class="line"> public:</span><br><span class="line">	Sample &amp; Set(int i, char *p);</span><br><span class="line">    &#x2F;&#x2F;..</span><br><span class="line">&#125;;</span><br><span class="line">Sample&amp; Sample::Set(int i, char *p);		&#x2F;&#x2F;方法Set返回当前对象的引用，*this就是当前对象。</span><br><span class="line">&#123;</span><br><span class="line"> x&#x3D;i;</span><br><span class="line"> ptr&#x3D;p;</span><br><span class="line"> return *this;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="对象数组与对象指针"><a href="#对象数组与对象指针" class="headerlink" title="对象数组与对象指针"></a>对象数组与对象指针</h1><h2 id="对象数组"><a href="#对象数组" class="headerlink" title="对象数组"></a>对象数组</h2><p>所谓对象数组是指每一数组元素都是对象的数组，也就是说，若一个类有若干个对象，我们把这一系列的对象用一个数组来存放。<br>对象数组的元素是对象，不仅具有数据成员，而且还有函数成员。定义对象数组时，系统为每个数组元素对象调用一次构造函数以构造这些元素。<br>对象数组的定义的格式为:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">类名 数组名 [数组大小]；</span><br></pre></td></tr></table></figure>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Student stu[3];</span><br><span class="line">  定义了类Student的对象数组stu。</span><br><span class="line">  系统调用无参构造函数3次。</span><br></pre></td></tr></table></figure>
+<p>如果类<code>Student</code>有2个数据成员姓名<code>（char name[10]）、年龄(int age)</code>，那么在定义对象数组时也可以实现初始化。<br>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Student stu[3]&#x3D;&#123; Student(“zhao”,22),  Student(“qian”,20),  Student(“sun”，8,90)  &#125;;</span><br></pre></td></tr></table></figure>
+<p>在建立对象数组时，分别调用构造函数，对每个元素初始化。<br>与基本数据类型的数组一样，在使用对象数组时也只能访问单个数组元素，也就是一个对象，通过这个对象，也可以访问到它的公有成员，一般形式是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">数组名［下标］. 成员名</span><br></pre></td></tr></table></figure>
+<p>对象数组的应用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Sample</span><br><span class="line">&#123;</span><br><span class="line">    private:</span><br><span class="line">        int x;</span><br><span class="line">	public:</span><br><span class="line">		void Set_x(int n)</span><br><span class="line">			&#123; x&#x3D;n; &#125;</span><br><span class="line">		int Get_x()</span><br><span class="line">			&#123;  return x;  &#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">	Sample obj[4];</span><br><span class="line">	int i;</span><br><span class="line">	for(i&#x3D;0; i&lt;4; i++)</span><br><span class="line">		obj[i].Set_x(i);</span><br><span class="line">	for(i&#x3D;0; i&lt;4; i++)</span><br><span class="line">		cout&lt;&lt;obj[i].Get_x()&lt;&lt;” ”;</span><br><span class="line">		cout&lt;&lt;endl;</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果为：0 1 2 3</p>
+<h2 id="堆对象"><a href="#堆对象" class="headerlink" title="堆对象"></a>堆对象</h2><p>使用new运算符动态分配的对象属于堆对象，其所占存储空间被分配在堆区。</p>
+<p>利用new建立对象会自动调用构造函数，利用delete删除对象会自动调用析构函数。<br>堆对象的建立与删除：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Date				&#x2F;&#x2F;定义日期类Date</span><br><span class="line">&#123;	private:</span><br><span class="line">		int month, day,  year;</span><br><span class="line">	public:</span><br><span class="line">		Date(int m, int d, int y);		&#x2F;&#x2F;声明构造函数</span><br><span class="line">&#125;;</span><br><span class="line">Date::Date(int m, int d, int y) 	　　&#x2F;&#x2F;定义构造函数</span><br><span class="line">&#123;	if (m&gt;0 &amp;&amp; m&lt;13)</span><br><span class="line">		month&#x3D;m;</span><br><span class="line">	if (d&gt;0 &amp;&amp; d&lt;32)</span><br><span class="line">      	day&#x3D;d;  </span><br><span class="line">	if (y&gt;0 &amp;&amp; y&lt;3000)</span><br><span class="line">		year&#x3D;y;  </span><br><span class="line">&#125;</span><br><span class="line">int main()　　　　　　　　　</span><br><span class="line">&#123;	Date *pd;		              &#x2F;&#x2F;定义一个指向Date类的对象的指针变量pd</span><br><span class="line">    	pd&#x3D;new Date(1,1,2008);	  &#x2F;&#x2F;pd指向新建Date类的对象的起始地址</span><br><span class="line">    	&#x2F;&#x2F;……</span><br><span class="line">    	delete(pd);			&#x2F;&#x2F;释放pd所指向的内存空间</span><br><span class="line">		return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="对象指针"><a href="#对象指针" class="headerlink" title="对象指针"></a>对象指针</h2><p>指向类对象的指针称为对象指针。</p>
+<p>声明指向类对象的指针变量的一般形式为<br>     <code>类名 *对象指针名;</code><br>用指针引用单个对象成员的方法与其他基本类型指针相同，可以有两种形式：<br>   <code>指针变量名-&gt;成员名</code><br>或<br>   <code>(*指针变量名).成员名</code><br>可以通过对象指针访问对象和对象的成员。</p>
+<p>例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Date obj, *pt;</span><br><span class="line">	pt&#x3D;&amp;obj;</span><br></pre></td></tr></table></figure>
+<p>定义指向Date类对象obj的指针变量pt。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">*pt             &#x2F;&#x2F;pt所指向的对象，即obj</span><br><span class="line">(*pt).year 	 &#x2F;&#x2F;pt所指向的对象obj中的year成员，即obj.year</span><br><span class="line">pt-&gt;year	&#x2F;&#x2F;pt所指向的对象obj中的year成员，即obj.year</span><br><span class="line">(*pt).get_date()   &#x2F;&#x2F;调用所指向的对象obj中的get_date函数，即obj.getdate()</span><br><span class="line">pt-&gt;get_date        &#x2F;&#x2F;调用所指向的对象obj中的get_date函数，即obj.getdate()</span><br></pre></td></tr></table></figure>
+<p>有关对象指针的使用方法 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">#include &lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Date				&#x2F;&#x2F;定义日期类Date</span><br><span class="line">&#123;	private:</span><br><span class="line">		int month, day,  year;</span><br><span class="line">	public:</span><br><span class="line">		Date(int m, int d, int y);		&#x2F;&#x2F;声明构造函数</span><br><span class="line">void showDate();　　　　 &#x2F;&#x2F;声明显示数据成员值的成员函数</span><br><span class="line">&#125;;</span><br><span class="line">Date::Date(int m, int d, int y) 	　　&#x2F;&#x2F;定义构造函数</span><br><span class="line">&#123;	if (m&gt;0 &amp;&amp; m&lt;13)</span><br><span class="line">		month&#x3D;m;</span><br><span class="line">	if (d&gt;0 &amp;&amp; d&lt;32)</span><br><span class="line">      	day&#x3D;d;  </span><br><span class="line">	if (y&gt;0 &amp;&amp; y&lt;3000)</span><br><span class="line">		year&#x3D;y;  </span><br><span class="line">&#125;</span><br><span class="line">void Date::showDate()</span><br><span class="line">&#123;</span><br><span class="line">cout&lt;&lt;year&lt;&lt;”.”&lt;&lt;month&lt;&lt;”.”&lt;&lt;day&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">Date obj(2008,1,1);  &#x2F;&#x2F;定义Date类对象obj</span><br><span class="line">int *pt1&#x3D;&amp;obj.year;  </span><br><span class="line">        &#x2F;&#x2F;定义指向整型数据的指针变量pt1，并使pt1  指向obj.year</span><br><span class="line">	cout&lt;&lt;*pt1&lt;&lt;endl;  &#x2F;&#x2F;输出pt1所指向的数据成员obj.year</span><br><span class="line">	obj.showDate();    &#x2F;&#x2F;调用对象obj的成员函数showDate()</span><br><span class="line">	Date *pt2&#x3D;&amp;obj;   </span><br><span class="line">              &#x2F;&#x2F;定义指向Date类对象的指针变量pt2，并使pt2指向obj</span><br><span class="line">	pt2-&gt;showDate();  &#x2F;&#x2F;调用pt2所指向对象obj的showDate()函数</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果为：<br>2008<br>2008.1.1<br>2008.1.1</p>
+<h1 id="静态成员"><a href="#静态成员" class="headerlink" title="静态成员"></a>静态成员</h1><p>为了实现一个类的不同对象之间的数据和函数共享，C++提出了静态成员的概念。静态成员包括:</p>
+<ul>
+<li>静态数据成员</li>
+<li>静态函数成员</li>
+</ul>
+<p>在类的定义中，可以用关键字static声明成员为静态成员，这些静态成员可以在同一个类的不同对象之间提供数据共享。<br>不管这个类创建了多少个对象，但静态成员只有一份拷贝（副本），为所有属于这个类的对象所共享。</p>
+<h2 id="静态数据成员"><a href="#静态数据成员" class="headerlink" title="静态数据成员"></a>静态数据成员</h2><p>公有的静态数据成员可以在对象定义之前被访问，形式为：<br>   <code>类名：：公有静态成员变量名；</code><br>在对象定义后还可以通过对象进行访问，形式为：<br>   <code>对象名.公有静态成员变量名；</code><br>私有的静态数据成员不能被类的外部函数访问，也不能用对象进行访问。<br>静态数据成员的初始化必须在类外进行，默认值为0，它是在编译时创建并初始化，所以它在该类的任何对象被创建前就存在。</p>
+<p>静态数据成员的定义与使用示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Ctype</span><br><span class="line">&#123;private:</span><br><span class="line">	int a;           </span><br><span class="line">	static int s;                &#x2F;&#x2F;定义私有的静态数据成员s</span><br><span class="line">public:</span><br><span class="line">	void print();</span><br><span class="line">	Ctype(int x&#x3D;0);</span><br><span class="line">&#125;;</span><br><span class="line">void Ctype::print()</span><br><span class="line">&#123; cout&lt;&lt;”a&#x3D;”&lt;&lt;++a&lt;&lt;endl;  &#x2F;&#x2F;输出普通数据成员</span><br><span class="line"> cout&lt;&lt;”s&#x3D;”&lt;&lt;++s&lt;&lt;endl;  &#x2F;&#x2F;输出静态数据成员，两者作比较</span><br><span class="line"> &#125;</span><br><span class="line">Ctype::Ctype(int x)</span><br><span class="line">&#123;  a&#x3D;x;</span><br><span class="line">&#125;</span><br><span class="line">int Ctype::s&#x3D;0;          &#x2F;&#x2F;静态数据成员赋初值在类体外进行，前面不能再加static</span><br><span class="line">int main()</span><br><span class="line">&#123;  Ctype c1,c2,c3;     &#x2F;&#x2F;定义3个对象，都使用默认的参数值</span><br><span class="line">	c1.print();         </span><br><span class="line">	c2.print();</span><br><span class="line">	c3.print();</span><br><span class="line">	return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果为：<br>a=1<br>s=1<br>a=1<br>s=2<br>a=1<br>s=3</p>
+<p>静态数据成员和一般数据成员的不同</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class Student</span><br><span class="line">&#123;</span><br><span class="line">private:</span><br><span class="line">static int count;	&#x2F;&#x2F;声明静态数据成员count，统计学生的总数</span><br><span class="line">int StudentNo;		&#x2F;&#x2F;普通数据成员，用于表示每个学生的学号</span><br><span class="line">public:</span><br><span class="line">Student()		&#x2F;&#x2F;构造函数</span><br><span class="line">&#123;</span><br><span class="line">++count;		&#x2F;&#x2F;每创建一个学生对象，学生数加1</span><br><span class="line">StudentNo&#x3D;count;	&#x2F;&#x2F;给当前学生的学号赋值</span><br><span class="line">&#125;</span><br><span class="line">void Print()	&#x2F;&#x2F;成员函数，显示学生的学号和当前学生数</span><br><span class="line">&#123;</span><br><span class="line">cout&lt;&lt;”Student”&lt;&lt;StudentNo&lt;&lt;”  ”;</span><br><span class="line">cout&lt;&lt;”count&#x3D;”&lt;&lt;count&lt;&lt;endl;</span><br><span class="line">&#125;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">int Student::count&#x3D;0;		&#x2F;&#x2F;给静态数据成员couny赋初值</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">Student Student1;		&#x2F;&#x2F;创建第1个学生对象</span><br><span class="line">Student1.print();</span><br><span class="line">cout&lt;&lt;&quot;---------&quot;&lt;&lt;endl;</span><br><span class="line">Student Student2;	&#x2F;&#x2F;创建第2个学生对象 Student2</span><br><span class="line">Student1.Print();</span><br><span class="line">Student2.Print();</span><br><span class="line">cout&lt;&lt;&quot;----------&quot;&lt;&lt;endl;</span><br><span class="line">Student Student3;		&#x2F;&#x2F;创建第3个学生对象Student3</span><br><span class="line">Student1.Print();</span><br><span class="line">Student2.Print();</span><br><span class="line">Student3.Print();</span><br><span class="line">cout&lt;&lt;&quot;----------&quot;&lt;&lt;endl;;</span><br><span class="line">Student Student4;		&#x2F;&#x2F;创建第4个学生对象Student4</span><br><span class="line">Student1.Print();</span><br><span class="line">Student2.Print();</span><br><span class="line">Student3.Print();</span><br><span class="line">Student4.Print();</span><br><span class="line">return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">Studentl count&#x3D;1</span><br><span class="line">----------</span><br><span class="line">Studentl count&#x3D;2</span><br><span class="line">Student2 count&#x3D;2</span><br><span class="line">----------</span><br><span class="line">Studentl count&#x3D;3</span><br><span class="line">Student2 count&#x3D;3</span><br><span class="line">Student3 count&#x3D;3</span><br><span class="line">----------</span><br><span class="line">Studentl count&#x3D;4</span><br><span class="line">Student2 count&#x3D;4</span><br><span class="line">Student3 count&#x3D;4</span><br><span class="line">Student4 count&#x3D;4</span><br></pre></td></tr></table></figure>
+
+<h2 id="静态成员函数"><a href="#静态成员函数" class="headerlink" title="静态成员函数"></a>静态成员函数</h2><p>在类定义中，声明为static的成员函数能在类的范围内共享，把这样的成员函数称为静态成员函数。<br>静态成员函数属于整个类，是该类所有对象共享的成员函数，而不属于类中的某个对象。<br>静态成员函数只能访问静态数据成员，不能对类的其他类型的数据成员或成员函数进行访问，可以通过对象或类名进行调用。</p>
+<p>定义静态成员函数的格式为<br>    <code>static返回类型 静态成员函数名（参数表）；</code><br>与静态数据成员类似，调用公有静态成员函数的一般格式为<br>  <code>类名：：静态成员函数名（实参表）</code><br>  <code>对象．静态成员函数名（实参表）</code></p>
+<p>关于静态成员函数的使用有以下几点说明：</p>
+<ol>
+<li>静态成员函数可以定义成内嵌的，也可以在类外定义，在类外定义时，不用static前缀。</li>
+<li>一般情况下，静态函数成员主要用来访问全局变量或同一个类中的静态数据成员。特别是，当它与静态数据成员一起使用时，达到了对同一个类中对象之间共享数据进行维护的目的。</li>
+<li>私有静态成员函数不能被类外部函数和对象访问。</li>
+<li>使用静态成员函数的一个原因是，可以用它在建立任何对象之前处理静态数据成员，这是普通成员函数不能实现的功能。</li>
+<li>编译系统将静态成员函数限定为内部连接，也就是说，与现行文件相连接的其他文件中的同名函数不会与该函数发生冲突，维护了该函数使用的安全性，这是使用静态成员函数的另一个原因。</li>
+<li>在一般的成员函数中都隐含有一个this指针，用来指向对象自身，而在静态成员函数中是没有this指针的。</li>
+<li>一般而言，静态成员函数不访问类中的非静态成员。若确实需要，静态成员函数只能通过对象名（或指向对象的指针）访问该对象的非静态成员。</li>
+</ol>
+<h1 id="友元"><a href="#友元" class="headerlink" title="友元"></a>友元</h1><p>类的一个很重要的特点就是实现了数据隐藏和封装。在类定义的时候，一般都将数据成员声明为私有成员（或保护成员），只能在类定义的范围内使用，也就是说私有成员（或保护成员）只能通过它的成员函数来访问。</p>
+<p>但是，调用公有函数接口是需要时间开销的，且有时候需要在类的外部访问类的私有成员（或保护成员）。<br>为此，就需要寻找一种途径，在不放弃私有成员（或保护成员）数据安全性的情况下，使得一个普通函数或者类的成员函数可以访问到封装于某一类中的信息（私有、保护成员） 。</p>
+<p>在C++语言中，通过定义<strong>友元</strong>（friend member）来实现这一功能。类的友元包括<strong>友元函数</strong>和<strong>友元类</strong>。</p>
+<h2 id="友元函数"><a href="#友元函数" class="headerlink" title="友元函数"></a>友元函数</h2><p>友元函数有2种形式：</p>
+<ul>
+<li>一个不属于任何类的普通函数声明为当前类的友元，称为当前类的友元函数。</li>
+<li>一个其他类的成员函数声明为当前类的友元，称为当前类的友元成员。</li>
+</ul>
+<p>友元函数是在类中说明的由关键字friend修饰的非成员函数。<br>友元函数不是当前类的成员函数，而是独立于当前类的外部函数，但它可以访问该类的所有对象的成员，包括私有成员、保护成员和公有成员。<br>在类中声明友元函数时，需在其函数名前加上关键字friend。此声明可以放在公有部分，也可以放在保护部分和私有部分。<br>友元函数可以定义在类内部，也可以定义在类的外部。</p>
+<p>友元函数的使用：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream.h&gt;</span><br><span class="line">#include&lt;cmath&gt;</span><br><span class="line">	class Point</span><br><span class="line">	&#123;</span><br><span class="line">	 int x, y;</span><br><span class="line">	 public:</span><br><span class="line">		Point(int a&#x3D;0, int b&#x3D;0)</span><br><span class="line">		&#123;  x&#x3D;a; y&#x3D;b;  &#125;</span><br><span class="line">		~Point()  &#123;  &#125;</span><br><span class="line">		void Show()</span><br><span class="line">		&#123; cout&lt;&lt;”x&#x3D;”&lt;&lt;x&lt;&lt;” y&#x3D;”&lt;&lt;y&lt;&lt;endl;   &#125;</span><br><span class="line">		int Get_x()</span><br><span class="line">		&#123;  return x;  &#125;</span><br><span class="line">		int Get_y()</span><br><span class="line">		&#123;  return y;  &#125;</span><br><span class="line">	friend double Distance(Point &amp;p1, Point &amp;p2);  &#x2F;&#x2F;友元函数声明</span><br><span class="line">	&#125;;</span><br><span class="line"></span><br><span class="line">double Distance(Point &amp;p1, Point &amp;p2)   &#x2F;&#x2F;友元函数定义</span><br><span class="line">	&#123;</span><br><span class="line">	return  sqrt((p1.x-p2.x)*(p1.x-p2.x)+(p1.y-p2.y)*(p1.y-p2.y));</span><br><span class="line">	&#125;</span><br><span class="line">	int main()</span><br><span class="line">	&#123; Point p1, p2(1,1);</span><br><span class="line">	  cout&lt;&lt;Distance(p1,p2)&lt;&lt;endl;</span><br><span class="line">	  return 0;</span><br><span class="line">	&#125;</span><br></pre></td></tr></table></figure>
+<p>友元函数的说明：</p>
+<ul>
+<li>友元函数不是类的成员函数。因此，对友元函数指定访问权限无效，可以把友元函数的说明放在<code>private</code>、<code>public</code>、<code>protected</code>的任意段中。在类的外部定义友元函数时，不必像成员函数那样，在函数名前加上<code>类名::</code>。</li>
+<li>使用友元函数的目的是提高程序的运行效率。</li>
+<li>慎用友元函数，因为它可在类外直接访问类的私有或保护成员，破坏了类的信息隐藏的特性。</li>
+</ul>
+<h2 id="友元成员"><a href="#友元成员" class="headerlink" title="友元成员"></a>友元成员</h2><p>除了一般的函数可以作为某个类的友元外，一个类的成员函数也可以作为另一个类的友元。<br>这种成员函数不仅可以访问自己所在类对象中的所有成员，还可以访问friend声明语句所在类对象中的所有成员。<br>这样能使两个类相互合作、协调工作，完成某一任务。</p>
+<p>将一个类的成员函数说明为另一个类的友元函数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class N;       &#x2F;&#x2F;N类的前向说明，因为N的定义在M之后，而M中使用了N</span><br><span class="line">class M</span><br><span class="line">	&#123;</span><br><span class="line">	  int a, b;</span><br><span class="line">		public:</span><br><span class="line">		  M(int x, int y)</span><br><span class="line">		  &#123; a&#x3D;x; b&#x3D;y; &#125;</span><br><span class="line">		  void Print()</span><br><span class="line">		  &#123; cout&lt;&lt;”a&#x3D;”&lt;&lt;a&lt;&lt;” b&#x3D;”&lt;&lt;b&lt;&lt;endl;  &#125;</span><br><span class="line">		  void Setab(N &amp;);</span><br><span class="line">		&#125;;</span><br><span class="line">		class N</span><br><span class="line">		&#123;</span><br><span class="line">		  int c, d;</span><br><span class="line">		  public:</span><br><span class="line">			N(int a, int b)</span><br><span class="line">			&#123; c&#x3D;a; d&#x3D;b; &#125;</span><br><span class="line">		  void Print()</span><br><span class="line">		  &#123; cout&lt;&lt;”c&#x3D;”&lt;&lt;c&lt;&lt;” d&#x3D;”&lt;&lt;d&lt;&lt;endl;  &#125;</span><br><span class="line">	      friend void M::Setab(N&amp;);   &#x2F;&#x2F;将M类的成员函数说明为本类的友元函数</span><br><span class="line">		&#125;;</span><br><span class="line"></span><br><span class="line">void M::Setab(N &amp;obj)    &#x2F;&#x2F;M类的成员函数Setab()是类N的友元函数</span><br><span class="line">		&#123;</span><br><span class="line">		  a&#x3D;obj.c;            &#x2F;&#x2F;在Setab()中可以直接访问类N的私有成员</span><br><span class="line">		  b&#x3D;obj.d;</span><br><span class="line">		&#125;</span><br><span class="line">		int main()</span><br><span class="line">		&#123; M m(25, 40);</span><br><span class="line">		  N n(55,66);</span><br><span class="line">		  cout&lt;&lt;”m: ”;</span><br><span class="line">		  m.Print();</span><br><span class="line">		  cout&lt;&lt;”n: ”;</span><br><span class="line">		  n.Print();</span><br><span class="line">		  m.Setab(n);</span><br><span class="line">		  cout&lt;&lt;”m: ”;</span><br><span class="line">		  m.Print();</span><br><span class="line">		  return 0;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果为：<br>m: a=25 b=40<br>n: c=55 d=66<br>m: a=55 b=66</p>
+<h2 id="友元类"><a href="#友元类" class="headerlink" title="友元类"></a>友元类</h2><p>友元还可以是类，即一个类可以作为另一个类的友元。<br>当一个类作为另一个类的友元时，则该类中的所有成员函数都是另一个类的友元成员，都可以访问另一个类的所有成员。<br>友元类的声明格式为：<br>   <code>friend 类名；</code><br>此语句可以放在公有部分也可以放在私有部分或保护部分。</p>
+<p>将一个类说明为另一个类的友元类:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">#include&lt;iostream&gt;</span><br><span class="line">using namespace std;</span><br><span class="line">class B;  &#x2F;&#x2F; 前向说明，因为在后面定义的A类中用到B类</span><br><span class="line">class A</span><br><span class="line">&#123;</span><br><span class="line"> int x;</span><br><span class="line"> public: </span><br><span class="line">A(int a)</span><br><span class="line">&#123;  x&#x3D;a;  &#125;</span><br><span class="line">  friend class B;  &#x2F;&#x2F;将类B声明为类A的友元类</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">class B</span><br><span class="line">&#123;</span><br><span class="line">public:</span><br><span class="line">void Show(A  a)</span><br><span class="line">  &#123; cout&lt;&lt;”x&#x3D;”&lt;&lt;a.x&lt;&lt;endl;  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">int main()</span><br><span class="line">&#123;</span><br><span class="line">		A a(10);</span><br><span class="line">		B b;</span><br><span class="line">		b.Show(a);</span><br><span class="line">		return 0;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果为：<br>x=10 </p>
+<p>说明：</p>
+<ul>
+<li>本例中，类B是类A的友元，因此，在类B的成员函数中可以访问类A的任何成员。</li>
+<li>友元关系是单向的，不具有交换性，即类A中将类B声明为自己的友元类，但类B中没有将类A声明为友元类，所以类A的成员函数不可以访问类B的私有成员。</li>
+<li>当两个类都将对方声明为自己的友元时，才可以实现互访。</li>
+<li>友元关系也不具备传递性，即类A将类B声明为友元，类B将类C声明为友元，此时，类C不一定是类A的友元。</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%B1%BB/" rel="tag">#类</a>
+          
+            <a href="/tags/%E5%AF%B9%E8%B1%A1/" rel="tag">#对象</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/12/%E7%B1%BB%E5%92%8C%E5%AF%B9%E8%B1%A1(%E4%B8%80)/" rel="next" title="类和对象(一)">
+                <i class="fa fa-chevron-left"></i> 类和对象(一)
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/26/%E7%BB%A7%E6%89%BF%E4%B8%8E%E6%B4%BE%E7%94%9F/" rel="prev" title="继承与派生">
+                继承与派生 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="烂泥面包" />
+          <p class="site-author-name" itemprop="name">烂泥面包</p>
+          <p class="site-description motion-element" itemprop="description">天生我材必有用</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#自引用指针this"><span class="nav-number">1.</span> <span class="nav-text">自引用指针this</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#对象数组与对象指针"><span class="nav-number">2.</span> <span class="nav-text">对象数组与对象指针</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#对象数组"><span class="nav-number">2.1.</span> <span class="nav-text">对象数组</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#堆对象"><span class="nav-number">2.2.</span> <span class="nav-text">堆对象</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#对象指针"><span class="nav-number">2.3.</span> <span class="nav-text">对象指针</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#静态成员"><span class="nav-number">3.</span> <span class="nav-text">静态成员</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#静态数据成员"><span class="nav-number">3.1.</span> <span class="nav-text">静态数据成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#静态成员函数"><span class="nav-number">3.2.</span> <span class="nav-text">静态成员函数</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#友元"><span class="nav-number">4.</span> <span class="nav-text">友元</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#友元函数"><span class="nav-number">4.1.</span> <span class="nav-text">友元函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#友元成员"><span class="nav-number">4.2.</span> <span class="nav-text">友元成员</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#友元类"><span class="nav-number">4.3.</span> <span class="nav-text">友元类</span></a></li></ol></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烂泥面包</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

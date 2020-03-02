@@ -1,0 +1,730 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Java," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="环形队列 含义：它是在写程序时候一种队列的特殊表达方式，把队列数据组中的最后一个元素和第一个元素相连构成环，所以称为环形队列。  思路 front初始值为0，指向队列的第一个元素，也就是说arr[front]是队列的第一个元素。 rear初始值为0，指向队列的最后一个元素的后一个位置。 当队列满时，条件是(rear+1) % maxSize &#x3D;&#x3D; front。 当队列为空时，条件是rear &#x3D;&#x3D;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="环形队列（数组实现）">
+<meta property="og:url" content="http://yoursite.com/2019/06/05/%E7%8E%AF%E5%BD%A2%E9%98%9F%E5%88%97%EF%BC%88%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%EF%BC%89/index.html">
+<meta property="og:site_name" content="烂泥面包">
+<meta property="og:description" content="环形队列 含义：它是在写程序时候一种队列的特殊表达方式，把队列数据组中的最后一个元素和第一个元素相连构成环，所以称为环形队列。  思路 front初始值为0，指向队列的第一个元素，也就是说arr[front]是队列的第一个元素。 rear初始值为0，指向队列的最后一个元素的后一个位置。 当队列满时，条件是(rear+1) % maxSize &#x3D;&#x3D; front。 当队列为空时，条件是rear &#x3D;&#x3D;">
+<meta property="article:published_time" content="2019-06-05T01:13:10.000Z">
+<meta property="article:modified_time" content="2019-06-05T02:22:53.000Z">
+<meta property="article:author" content="烂泥面包">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 环形队列（数组实现） | 烂泥面包 </title>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">烂泥面包</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                环形队列（数组实现）
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-06-05T09:13:10+08:00" content="2019-06-05">
+              2019-06-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="环形队列"><a href="#环形队列" class="headerlink" title="环形队列"></a>环形队列</h1><ul>
+<li>含义：它是在写程序时候一种队列的特殊表达方式，把队列数据组中的最后一个元素和第一个元素相连构成环，所以称为环形队列。</li>
+</ul>
+<h1 id="思路"><a href="#思路" class="headerlink" title="思路"></a>思路</h1><ul>
+<li><code>front</code>初始值为0，指向队列的第一个元素，也就是说<code>arr[front]</code>是队列的第一个元素。</li>
+<li><code>rear</code>初始值为0，指向队列的最后一个元素的后一个位置。</li>
+<li>当队列满时，条件是<code>(rear+1) % maxSize == front</code>。</li>
+<li>当队列为空时，条件是<code>rear == front</code>。</li>
+<li>队列中有效数据的个数为<code>(rear+maxSize-front) % maxSize</code>。</li>
+</ul>
+<a id="more"></a>
+
+<h1 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br></pre></td><td class="code"><pre><span class="line">package com.atguigu.queue;</span><br><span class="line"></span><br><span class="line">import java.util.Scanner;</span><br><span class="line"></span><br><span class="line">public class CircleArrayQueueDemo &#123;</span><br><span class="line"></span><br><span class="line">	public static void main(String[] args) &#123;</span><br><span class="line">		System.out.println(&quot;测试数组模拟环形队列案例。。。&quot;);</span><br><span class="line">		&#x2F;&#x2F; 创建一个队列</span><br><span class="line">		CircleArray queue &#x3D; new CircleArray(4);&#x2F;&#x2F;说明：设置为4 ，有效数据个数最大为3</span><br><span class="line">		char key &#x3D; &#39; &#39;;		&#x2F;&#x2F;接收用户输入</span><br><span class="line">		Scanner scanner &#x3D; new Scanner(System.in);</span><br><span class="line">		boolean loop &#x3D; true;</span><br><span class="line">		&#x2F;&#x2F;输出一个菜单</span><br><span class="line">		while(loop) &#123;</span><br><span class="line">			System.out.println(&quot;s(show):显示队列&quot;);</span><br><span class="line">			System.out.println(&quot;e(exit):退出程序&quot;);</span><br><span class="line">			System.out.println(&quot;a(add):添加数据到队列&quot;);</span><br><span class="line">			System.out.println(&quot;g(get):从队列取出数据&quot;);</span><br><span class="line">			System.out.println(&quot;h(head):查看队列头的数据&quot;);</span><br><span class="line">			key &#x3D; scanner.next().charAt(0);&#x2F;&#x2F;接收一个字符</span><br><span class="line">			switch (key) &#123;</span><br><span class="line">				case &#39;s&#39;:</span><br><span class="line">					queue.showQueue();</span><br><span class="line">					break;</span><br><span class="line">				case &#39;a&#39;:</span><br><span class="line">					System.out.println(&quot;请输入一个数据&quot;);</span><br><span class="line">					int value &#x3D; scanner.nextInt();</span><br><span class="line">					queue.addQueue(value);</span><br><span class="line">					break;</span><br><span class="line">				case &#39;g&#39;:</span><br><span class="line">					try &#123;</span><br><span class="line">						int res &#x3D; queue.getQueue();</span><br><span class="line">						System.out.printf(&quot;取出的数据是%d\n&quot;,res);</span><br><span class="line">					&#125; catch (Exception e) &#123;</span><br><span class="line">						&#x2F;&#x2F; TODO: handle exception</span><br><span class="line">						System.out.println(e.getMessage());</span><br><span class="line">					&#125;</span><br><span class="line">					break;</span><br><span class="line">				case &#39;h&#39;:</span><br><span class="line">					try &#123;</span><br><span class="line">						int res &#x3D; queue.headQueue();</span><br><span class="line">						System.out.printf(&quot;队列头的数据是%d\n&quot;,res);</span><br><span class="line">					&#125; catch (Exception e) &#123;</span><br><span class="line">						&#x2F;&#x2F; TODO: handle exception</span><br><span class="line">						System.out.println(e.getMessage());</span><br><span class="line">					&#125;</span><br><span class="line">					break;</span><br><span class="line">				case &#39;e&#39;:</span><br><span class="line">					scanner.close();</span><br><span class="line">					loop &#x3D; false;</span><br><span class="line">				default:</span><br><span class="line">					break;</span><br><span class="line">				&#125;	</span><br><span class="line">			&#125;</span><br><span class="line">			System.out.println(&quot;程序退出&quot;);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br><span class="line">class CircleArray&#123;</span><br><span class="line">	private int maxSize;	&#x2F;&#x2F;表示数组的最大容量</span><br><span class="line">	private int front;	&#x2F;&#x2F;队列头:front初始值为0，指向队列的第一个元素，也就是说arr[front]是队列的第一个元素。</span><br><span class="line">	private int rear;	&#x2F;&#x2F;队列尾:rear初始值为0，指向队列的最后一个元素的后一个位置。</span><br><span class="line">	private int[] arr;	&#x2F;&#x2F;该数组用于存放数据，模拟队列。</span><br><span class="line">	</span><br><span class="line">	public CircleArray(int arrMaxSize) &#123;</span><br><span class="line">		maxSize &#x3D; arrMaxSize;</span><br><span class="line">		arr &#x3D; new int[maxSize];</span><br><span class="line">		front &#x3D; 0;	</span><br><span class="line">		rear &#x3D; 0;	</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;判断队列是否满</span><br><span class="line">	public boolean isFull() &#123;</span><br><span class="line">		return (rear + 1) % maxSize &#x3D;&#x3D; front;</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;判断队列是否为空</span><br><span class="line">	public boolean isEmpty() &#123;</span><br><span class="line">		return rear &#x3D;&#x3D; front;</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;添加数据到队列</span><br><span class="line">	public void addQueue(int n) &#123;</span><br><span class="line">		&#x2F;&#x2F;判断队列是否满</span><br><span class="line">		if(isFull()) &#123;</span><br><span class="line">			System.out.println(&quot;队列满，不能加入数据&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		arr[rear] &#x3D; n;&#x2F;&#x2F;直接将数据加入</span><br><span class="line">		rear &#x3D; (rear+1)%maxSize;&#x2F;&#x2F;让rear后移,这里必须考虑取模</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;获取队列的数据，出队列</span><br><span class="line">	public int getQueue() &#123;</span><br><span class="line">		&#x2F;&#x2F;判断队列是否为空</span><br><span class="line">		if(isEmpty()) &#123;</span><br><span class="line">			&#x2F;&#x2F;通过抛出异常</span><br><span class="line">			throw new RuntimeException(&quot;队列空，不能取数据&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		&#x2F;&#x2F;front是指向队列的第一个元素</span><br><span class="line">		&#x2F;&#x2F;1.先把front对应的值保存到一个临时变量</span><br><span class="line">		&#x2F;&#x2F;2.将front后移,考虑取模,否则数组会越界</span><br><span class="line">		&#x2F;&#x2F;3.将临时保存的变量返回</span><br><span class="line">		int value &#x3D; arr[front];</span><br><span class="line">		front &#x3D; (front + 1) % maxSize;</span><br><span class="line">		return value;</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;显示队列的所有数据</span><br><span class="line">	public void showQueue() &#123;</span><br><span class="line">		&#x2F;&#x2F;遍历</span><br><span class="line">		if(isEmpty()) &#123;</span><br><span class="line">			System.out.println(&quot;队列空，没有数据&quot;);</span><br><span class="line">			return;</span><br><span class="line">		&#125;</span><br><span class="line">		&#x2F;&#x2F;思路：从front开始遍历，遍历front + size()个元素</span><br><span class="line">		for (int i &#x3D; front; i &lt; front + size(); i++) &#123;</span><br><span class="line">			System.out.printf(&quot;arr[%d]&#x3D;%d\n&quot;,i % maxSize,arr[i % maxSize]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;求出当前队列有效数据的个数</span><br><span class="line">	public int size() &#123;</span><br><span class="line">		return (rear+maxSize-front) % maxSize;</span><br><span class="line">	&#125;</span><br><span class="line">	&#x2F;&#x2F;显示队列头数据，注意不是取数据</span><br><span class="line">	public int headQueue() &#123;</span><br><span class="line">		&#x2F;&#x2F;判断</span><br><span class="line">		if(isEmpty()) &#123;</span><br><span class="line">			throw new RuntimeException(&quot;队列空，没有数据&quot;);</span><br><span class="line">		&#125;</span><br><span class="line">		return arr[front];</span><br><span class="line">	&#125; </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Java/" rel="tag">#Java</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/06/04/%E9%98%9F%E5%88%97%EF%BC%88%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0%EF%BC%89/" rel="next" title="队列（数组实现）">
+                <i class="fa fa-chevron-left"></i> 队列（数组实现）
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/05/%E9%93%BE%E8%A1%A8/" rel="prev" title="链表">
+                链表 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="烂泥面包" />
+          <p class="site-author-name" itemprop="name">烂泥面包</p>
+          <p class="site-description motion-element" itemprop="description">天生我材必有用</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#环形队列"><span class="nav-number">1.</span> <span class="nav-text">环形队列</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#思路"><span class="nav-number">2.</span> <span class="nav-text">思路</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#代码实现"><span class="nav-number">3.</span> <span class="nav-text">代码实现</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烂泥面包</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>

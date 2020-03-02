@@ -1,0 +1,794 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/vendors/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="//fonts.googleapis.com/css?family=Lato:300,400,700,400italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+
+
+
+<link href="/vendors/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.5.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法,时间复杂度,大O表示法," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.5.0" />
+
+
+
+
+
+
+<meta name="description" content="深入理解算法时间复杂度算法时间复杂度用来度量算法执行时间的多少，定义为若存在有正常数$c$，$n_0$，使得当$n \ge n_0$时都有$0 \le T(n) \le c \times f(n)$，则$T(n)&#x3D;O(f(n))$,用大$O$阶表示，其中$n$为问题规模，也就是问题的大小。既然要理解时间复杂度，我们首先理解术语中的两个关键词——“算法”和“时间”，理解了它俩就成功一半了。  先看“">
+<meta property="og:type" content="article">
+<meta property="og:title" content="算法分析">
+<meta property="og:url" content="http://yoursite.com/2019/03/06/%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="烂泥面包">
+<meta property="og:description" content="深入理解算法时间复杂度算法时间复杂度用来度量算法执行时间的多少，定义为若存在有正常数$c$，$n_0$，使得当$n \ge n_0$时都有$0 \le T(n) \le c \times f(n)$，则$T(n)&#x3D;O(f(n))$,用大$O$阶表示，其中$n$为问题规模，也就是问题的大小。既然要理解时间复杂度，我们首先理解术语中的两个关键词——“算法”和“时间”，理解了它俩就成功一半了。  先看“">
+<meta property="article:published_time" content="2019-03-06T08:55:24.000Z">
+<meta property="article:modified_time" content="2019-07-08T00:42:26.000Z">
+<meta property="article:author" content="烂泥面包">
+<meta property="article:tag" content="算法">
+<meta property="article:tag" content="时间复杂度">
+<meta property="article:tag" content="大O表示法">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> 算法分析 | 烂泥面包 </title>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">烂泥面包</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="#" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                算法分析
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-03-06T16:55:24+08:00" content="2019-03-06">
+              2019-03-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index">
+                    <span itemprop="name">数据结构与算法</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="深入理解算法时间复杂度"><a href="#深入理解算法时间复杂度" class="headerlink" title="深入理解算法时间复杂度"></a>深入理解算法时间复杂度</h1><p>算法时间复杂度用来度量算法执行时间的多少，定义为若存在有正常数$c$，$n_0$，使得当$n \ge n_0$时都有$0 \le T(n) \le c \times f(n)$，则$T(n)=O(f(n))$,用大$O$阶表示，其中$n$为问题规模，也就是问题的大小。<br>既然要理解时间复杂度，我们首先理解术语中的两个关键词——“<strong>算法</strong>”和“<strong>时间</strong>”，理解了它俩就成功一半了。</p>
+<ul>
+<li><p>先看“<strong>算法</strong>”，算法是解决特定问题的方法，在计算机领域里需要将算法用计算机能听懂的语言描述给它听，明白之后它才能使用运算能力解决问题。计算机能听懂的语言，也就是一系列的指令。</p>
+</li>
+<li><p>再看“<strong>时间</strong>”，此处的时间指执行算法消耗的时间，也就是计算机执行前面所说的一系列指令的时间。这个时间的影响因素有：</p>
+<ul>
+<li>计算机执行每条指令的速度</li>
+<li>硬件层面编译产生的代码质量</li>
+<li>软件层面算法的好坏(算法使用的策略)</li>
+<li>问题规模</li>
+</ul>
+</li>
+</ul>
+<a id="more"></a>
+
+<p>在给定软硬件环境下，其实就是你在自己电脑上写算法的时候，算法执行时间只受算法本身的好坏和要处理的问题的规模影响。这样<strong>4个影响因素减少为2个</strong>，简化了问题。</p>
+<p>给定问题规模$n$之后，优秀的算法可能哐哐哐执行几次就搞定了，一般的算法可能吭哧吭哧执行很多很多次才搞定；当给定算法时，问题规模$n$很小时，可能执行几次就搞定，而$n$很大时，就得执行很多次了。所以算法优劣和问题规模$n$改变时，执行次数（基本操作数）将改变，所以执行次数就是算法优劣和问题规模$n$的函数。到此为止，我们得出一个简单的结论：<strong>算法执行时间可以用执行次数表示</strong>。</p>
+<p>给定算法时，执行次数变为问题规模$n$的函数。比如一个算法是$a$，一个算法是$b$，问题规模为$n$，那么执行次数分别为$Ca=f(n)$,$Cb=g(n)$。现在将比较两个算法的执行次数的问题转换为比较两个函数$f(n)$，$g(n)$的问题。那比较两个函数的什么性质呢？当然是比较随着问题规模$n$增大，执行次数的增加情况，也就是$f(n)$，$g(n)$的增长情况。好比让两个人吃一百个包子，一个人一小时吃完，一个人一分钟吃完，明显一分钟吃完的那个人能力强，效率高，吃法(算法)更先进。<br>要比较两个函数的增长情况，最好的办法是比较函数的一阶导，这样最精确，但是考虑到很多时候只需要大体了解算法的优劣就可以了，所以我们就直接考察对增长速度影响最大的一项，这一项就是函数的<strong>最高阶数</strong>。</p>
+<p>既然可以只考虑最高项的阶数，以简化问题，达到估算的目的，为何不这样做呢？和其他领域一样，还得用符号来表示，这个符号就是大名鼎鼎的大$O$。$T(n)=O(f(n))$其中，$T(n)$就是算法的时间复杂度；$f(n)$表示执行与算法优劣和问题规模有关的执行数；$O( )$表示一种运算符号，和$+-\times\div$类似。作用就是去除其他项，包括与最高项相乘的常数，只保留最高项，比如$f(n)=2n^2+1$，$O(f(n))=O(n^2)$。</p>
+<h1 id="运行时间计算的一般法则"><a href="#运行时间计算的一般法则" class="headerlink" title="运行时间计算的一般法则"></a>运行时间计算的一般法则</h1><p>为了对运算时间进行简化分析，我们采用约定：不存在特定的时间单位。因此我们抛弃一些前导的常数和低阶项，从而计算大$O$的运行时间，由于大$O$是上界，绝不要低估程序的运行时间。<br>例如：计算$\sum i^3$</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">public static int sum(int n)&#123;</span><br><span class="line">　　  int sum;</span><br><span class="line">⑴　　sum &#x3D; 0;</span><br><span class="line">⑵　　for(int i &#x3D; 1; i &lt;&#x3D; n; i++)&#123;</span><br><span class="line">⑶　　　　sum +&#x3D; i * i * i;</span><br><span class="line">　　&#125;</span><br><span class="line">⑷　　return sum;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>分析</strong>:所有的声明均不计时间。第一行赋值语句和第四行返回值语句各占一个时间单位。第三行运行一次占$4$各时间单位（一次赋值，两次乘法，一次加法），总共运行$N$次占$4N$个时间单位。第二行占（一次赋值，$N+1$次比较，$N$次自加）共$2N+2$个时间单位。忽略调用方法和返回值的开销，得到总量是$6N+4$个时间单位。因此我们说该方法是$O(N)$的。</p>
+<p>由于我们有了大$O$的结果，因此就存在许多可以采取捷径而不影响最后运行结果的方法。例如在第三行中我们无需知道运行一次到底占几个时间单位，我们只要知道它是$O(1)$的就行，至于赋值语句等与for循环比起可以忽略最后得到的结果还是$O(N)$。所以为了简化分析，我们不必计较具体开销，这使得我们得到一般法则。</p>
+<p><strong>法则一——for循环</strong>：</p>
+<p>一个for循环运行时间至多是该for循环内部那些语句（包括测试）的运行时间乘以迭代次数。一般情况下由于大O内部任何简化都是可能的，所以一般简单的for循环得到的结果是$O(N²)$的。</p>
+<p><strong>法则二——嵌套的for循环</strong>：</p>
+<p>从里向外分析循环。在一组嵌套循环内部的一条语句运行时间为该语句的运行时间乘以该组所有的for循环大小的乘积。例如双重for循环内部有一条赋值语句，则结果为$O(N²)$。</p>
+<p><strong>法则三——顺序语句</strong>：</p>
+<p>将各个语句的运行时间求和即可。<br>$(O(f(N）+O（g(N))= max(O(f(N)，O(g(N))$</p>
+<p><strong>法则四——if/else语句</strong>：</p>
+<p>对于程序片段</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if（条件）</span><br><span class="line"></span><br><span class="line">　　语句</span><br><span class="line"></span><br><span class="line">else</span><br><span class="line"></span><br><span class="line">　　语句</span><br></pre></td></tr></table></figure>
+<p>一个if/else语句的运行时间不会超过判断的运行时间加上两个语句中运行时间较长的那个语句的运行时间。</p>
+<p><strong>重要结论</strong></p>
+<ul>
+<li><p>如果$T_1(n)=O(f_1(n))$，且$T_2(n)=O(f_2(n))$，那么<br>   $T_1(N）+T_2(N))= max(O(f(N)，O(g(N))$<br>   $T_1(N）*T_2(N))= O(f(N)*g(N))$</p>
+</li>
+<li><p>对任意常数$k$，$log^k{N}=O(N)$。它告诉我们对数增长的非常慢。</p>
+</li>
+</ul>
+<h1 id="符号意义"><a href="#符号意义" class="headerlink" title="符号意义"></a>符号意义</h1><ul>
+<li>$O(1)$</li>
+</ul>
+<p>$O(1)$表示该算法的执行时间（或执行时占用空间）总是为一个常量，不论输入的数据集是大是小。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">bool IsFirstElementNull(IList&lt;string&gt; elements)</span><br><span class="line">&#123;</span><br><span class="line">    return elements[0] &#x3D;&#x3D; null;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>$O(N)$</li>
+</ul>
+<p>$O(N)$表示一个算法的性能会随着输入数据的大小变化而线性变化。下面的例子同时也表明了大O表示法其实是用来描述一个算法的最差情况的：在<code>for</code>循环中，一旦程序找到了输入数据中与第二个传入的<code>string</code>匹配时，程序就会提前退出，然而大O表示法却总是假定程序会运行到最差情况（在这个例子中，意味着大$O$会表示程序全部循环完成时的性能）。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">bool ContainsValue(IList&lt;string&gt; elements, string value)</span><br><span class="line">&#123;</span><br><span class="line">    foreach (var element in elements)</span><br><span class="line">    &#123;</span><br><span class="line">        if (element &#x3D;&#x3D; value) return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>$O(N^2)$</li>
+</ul>
+<p>$O(N^2)$表示一个算法的性能将会随着输入数据的增长而呈现出二次增长。最常见的算法就是对输入数据进行嵌套循环。如果嵌套层级不断深入的话，算法的性能将会变为$O(N3)$，$O(N4)$，以此类推。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">bool ContainsDuplicates(IList&lt;string&gt; elements)</span><br><span class="line">&#123;</span><br><span class="line">    for (var outer &#x3D; 0; outer &lt; elements.Count; outer++)</span><br><span class="line">    &#123;</span><br><span class="line">        for (var inner &#x3D; 0; inner &lt; elements.Count; inner++)</span><br><span class="line">        &#123;</span><br><span class="line">            &#x2F;&#x2F; Don&#39;t compare with self</span><br><span class="line">            if (outer &#x3D;&#x3D; inner) continue;</span><br><span class="line"></span><br><span class="line">            if (elements[outer] &#x3D;&#x3D; elements[inner]) return true;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>$O(2^N)$</li>
+</ul>
+<p>$O(2^N)$表示一个算法的性能将会随着输入数据的每次增加而增大两倍。$O(2^N)$的增长曲线是一条爆炸式增长曲线——开始时较为平滑，但数据增长后曲线增长非常陡峭。一个典型的$O(2^N)$方法就是裴波那契数列的递归计算实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">int Fibonacci(int number)</span><br><span class="line">&#123;</span><br><span class="line">    if (number &lt;&#x3D; 1) return number;</span><br><span class="line"></span><br><span class="line">    return Fibonacci(number - 2) + Fibonacci(number - 1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>对数</li>
+</ul>
+<p>要说明对数情况，稍稍有点复杂，因此我将使用一个非常通用的示例：<br>二分查找是一种用来在有序集合中进行查找的高效算法。二分查找从数据集的中间位置开始，然后用这个中间值和一个目标值进行比较。如果比较结果为相等，则程序返回成功。如果目标值大于中间值，程序会截取从中间值开始到最大值的那段数据集，并重复执行同样的查找方法。想死的，如果目标值小于中间值，程序将会继续在数据集中较小的那一半执行二分查找。二分查找程序会持续的将数据集对等分，以进入下一次循环，直到最终找到与目标值相等的数据后，程序就退出。<br>这类算法的性能就会被描述为$O(logN)$。正是通过这种不断对数据进行对等分的二分查找操作，使得二分查找算法的曲线从一个峰值开始，随着输入数据集的增长而慢慢的变得平缓。用例子来说明的话，例如一个包含10个输入数据的程序需要耗时一秒完成，则一个包含100个输入数据的程序就需要耗时两秒，然后一个包含1000个输入数据的程序就耗时三秒。加倍的输入数据对这类算法的性能结果影响非常小。基于如此，类似于二分查找的对数级算法在处理大量数据集时非常高效。 </p>
+<h1 id="常见算法的大O运行时间"><a href="#常见算法的大O运行时间" class="headerlink" title="常见算法的大O运行时间"></a>常见算法的大O运行时间</h1><p>$O(log n)$：对数时间，这样的算法包括二分查找。<br>$O(n)$：线性时间，这样的算法包括简单查找。<br>$O(n * log n)$：这样的算法包括快速排序。<br>$O(n2)$：这样的算法包括选择排序。<br>$O(n!)$：这样的算法包括旅行商问题的解决方案。</p>
+<p>更多内容请参考：<a href="https://en.wikipedia.org/wiki/Big_O_notation" target="_blank" rel="noopener">https://en.wikipedia.org/wiki/Big_O_notation</a></p>
+
+      
+    </div>
+
+    <div>
+      
+        
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">#算法</a>
+          
+            <a href="/tags/%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6/" rel="tag">#时间复杂度</a>
+          
+            <a href="/tags/%E5%A4%A7O%E8%A1%A8%E7%A4%BA%E6%B3%95/" rel="tag">#大O表示法</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/05/%E4%BD%BF%E7%94%A8Hexo-Github%E6%90%AD%E5%BB%BA%E4%B8%AA%E4%BA%BA%E5%8D%9A%E5%AE%A2/" rel="next" title="使用Hexo+Github搭建个人博客">
+                <i class="fa fa-chevron-left"></i> 使用Hexo+Github搭建个人博客
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/03/08/C++%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" rel="prev" title="C++语言基础">
+                C++语言基础 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/default_avatar.jpg"
+               alt="烂泥面包" />
+          <p class="site-author-name" itemprop="name">烂泥面包</p>
+          <p class="site-description motion-element" itemprop="description">天生我材必有用</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">34</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">8</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">19</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+        </div>
+
+        
+        
+
+        
+        <div class="links-of-blogroll motion-element">
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深入理解算法时间复杂度"><span class="nav-number">1.</span> <span class="nav-text">深入理解算法时间复杂度</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#运行时间计算的一般法则"><span class="nav-number">2.</span> <span class="nav-text">运行时间计算的一般法则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#符号意义"><span class="nav-number">3.</span> <span class="nav-text">符号意义</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见算法的大O运行时间"><span class="nav-number">4.</span> <span class="nav-text">常见算法的大O运行时间</span></a></li></ol></div>
+            
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">烂泥面包</span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io" target="_blank" rel="noopener">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next" target="_blank" rel="noopener">
+    NexT.Mist
+  </a>
+</div>
+
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/vendors/jquery/index.js?v=2.1.3"></script>
+
+  <script type="text/javascript" src="/vendors/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  <script type="text/javascript" src="/vendors/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/vendors/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.5.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.5.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=0.5.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=0.5.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.5.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+       search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+    'use strict';
+    $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+            // get the contents from search data
+            isfetched = true;
+            $('.popup').detach().appendTo('.header-inner');
+            var datas = $( "entry", xmlResponse ).map(function() {
+                return {
+                    title: $( "title", this ).text(),
+                    content: $("content",this).text(),
+                    url: $( "url" , this).text()
+                };
+            }).get();
+            var $input = document.getElementById(search_id);
+            var $resultContent = document.getElementById(content_id);
+            $input.addEventListener('input', function(){
+                var matchcounts = 0;
+                var str='<ul class=\"search-result-list\">';                
+                var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                $resultContent.innerHTML = "";
+                if (this.value.trim().length > 1) {
+                // perform local searching
+                datas.forEach(function(data) {
+                    var isMatch = true;
+                    var content_index = [];
+                    var data_title = data.title.trim().toLowerCase();
+                    var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                    var data_url = data.url;
+                    var index_title = -1;
+                    var index_content = -1;
+                    var first_occur = -1;
+                    // only match artiles with not empty titles and contents
+                    if(data_title != '' && data_content != '') {
+                        keywords.forEach(function(keyword, i) {
+                            index_title = data_title.indexOf(keyword);
+                            index_content = data_content.indexOf(keyword);
+                            if( index_title < 0 && index_content < 0 ){
+                                isMatch = false;
+                            } else {
+                                if (index_content < 0) {
+                                    index_content = 0;
+                                }
+                                if (i == 0) {
+                                    first_occur = index_content;
+                                }
+                            }
+                        });
+                    }
+                    // show search results
+                    if (isMatch) {
+                        matchcounts += 1;
+                        str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                        var content = data.content.trim().replace(/<[^>]+>/g,"");
+                        if (first_occur >= 0) {
+                            // cut out 100 characters
+                            var start = first_occur - 20;
+                            var end = first_occur + 80;
+                            if(start < 0){
+                                start = 0;
+                            }
+                            if(start == 0){
+                                end = 50;
+                            }
+                            if(end > content.length){
+                                end = content.length;
+                            }
+                            var match_content = content.substring(start, end);
+                            // highlight all keywords
+                            keywords.forEach(function(keyword){
+                                var regS = new RegExp(keyword, "gi");
+                                match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                            });
+                            
+                            str += "<p class=\"search-result\">" + match_content +"...</p>"
+                        }
+                        str += "</li>";
+                    }
+                })};
+                str += "</ul>";
+                if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+                if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+                $resultContent.innerHTML = str;
+            });
+            proceedsearch();
+        }
+    });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').mousedown(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+  
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+  </script>
+
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+      var all = MathJax.Hub.getAllJax(), i;
+      for (i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+      }
+    });
+  </script>
+
+  
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/MathJax.js"></script>
+    <script type="text/javascript" src="http://cdn.staticfile.org/mathjax/2.4.0/config/TeX-AMS-MML_HTMLorMML.js"></script>
+  
+
+
+  
+
+  
+
+</body>
+</html>
