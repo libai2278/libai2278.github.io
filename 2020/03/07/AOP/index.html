@@ -104,7 +104,7 @@
 <meta property="og:image" content="https://i.loli.net/2020/03/07/2zuLx8G5NqSmK7j.png">
 <meta property="og:image" content="https://i.loli.net/2020/03/07/isp1CjRNxBtMX56.png">
 <meta property="article:published_time" content="2020-03-07T03:59:13.000Z">
-<meta property="article:modified_time" content="2020-03-07T04:29:11.042Z">
+<meta property="article:modified_time" content="2020-03-07T04:31:25.837Z">
 <meta property="article:author" content="烂泥面包">
 <meta property="article:tag" content="AOP">
 <meta name="twitter:card" content="summary">
@@ -438,8 +438,8 @@
 <li><code>&lt;aop:aspectj-autoproxy /&gt;</code>有一个<code>proxy-target-class</code>属性，默认为false，表示使用jdk动态代理织。</li>
 </ul>
 <h1 id="AOP增强（Advice）"><a href="#AOP增强（Advice）" class="headerlink" title="AOP增强（Advice）"></a>AOP增强（Advice）</h1><p>Sring AOP通过PointCut来指定在那些类的那些方法上织入横切逻辑，通过Advice来指定在切点上具体做什么事情。如方法前做什么，方法后做什么，抛出异常做什么。<br><img src="https://i.loli.net/2020/03/07/Z2PWow7RhUrk4Sc.png" alt="增强方式说明"></p>
-<h2 id="Advice的执行过程"><a href="#Advice的执行过程" class="headerlink" title="Advice的执行过程"></a>Advice的执行过程</h2><p>1.同一aspect，不同advice的执行顺序<br><img src="https://i.loli.net/2020/03/07/2zuLx8G5NqSmK7j.png" alt="20200307121614.png"><br>2.不同aspect，advice的执行顺序<br><img src="https://i.loli.net/2020/03/07/isp1CjRNxBtMX56.png" alt="20200307121654.png"></p>
-<p>3.同一aspect，相同advice的执行顺序并不能直接确定，而且 @Order 在advice方法上也无效，但是有如下两种变通方式：</p>
+<h2 id="Advice的执行过程"><a href="#Advice的执行过程" class="headerlink" title="Advice的执行过程"></a>Advice的执行过程</h2><p><strong>1.同一aspect，不同advice的执行顺序</strong><br><img src="https://i.loli.net/2020/03/07/2zuLx8G5NqSmK7j.png" alt="20200307121614.png"><br><strong>2.不同aspect，advice的执行顺序</strong><br><img src="https://i.loli.net/2020/03/07/isp1CjRNxBtMX56.png" alt="20200307121654.png"></p>
+<p><strong>3.同一aspect，相同advice的执行顺序并不能直接确定，而且 @Order 在advice方法上也无效，但是有如下两种变通方式</strong>：</p>
 <ul>
 <li>将两个 advice 合并为一个 advice，那么执行顺序就可以通过代码控制了</li>
 <li>将两个 advice 分别抽离到各自的 aspect 内，然后为 aspect 指定执行顺序</li>
